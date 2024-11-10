@@ -10,7 +10,7 @@ function App() {
       <Routes>
         {/* 기본 경로에서 /SignIn으로 리디렉션 */}
         <Route path="/" element={<Navigate to="/SignIn" replace />} />
-        <Route path="/SignIn" element={<SignIn />} />
+        <Route path="/sign-in" element={<SignIn />} />
       </Routes>
     </div>
   );
