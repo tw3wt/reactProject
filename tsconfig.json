@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+      "jsx": "react",
+      // 다른 옵션들
+    }
+  }
+  
