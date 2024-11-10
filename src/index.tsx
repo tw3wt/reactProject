@@ -1,4 +1,4 @@
-// index.tsx (React의 진입점 파일)
+// index.tsx
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
