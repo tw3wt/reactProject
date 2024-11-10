@@ -1,7 +1,30 @@
 {
     "compilerOptions": {
-      "jsx": "react",
-      // 다른 옵션들
-    }
+      "outDir": "./dist",
+      "strict": true,
+      "noImplicitAny": true,
+      "noImplicitReturns": true,
+      "noFallthroughCasesInSwitch": true,
+      "skipLibCheck": true,
+      "isolatedModules": true,
+      "esModuleInterop": true,
+      "sourceMap": true,
+      "declaration": false,
+      "moduleResolution": "node",
+      "jsx": "react-jsx",
+      "target": "ES2022",
+      "module": "ES2022",
+      "lib": [
+        "ES2022",
+        "dom"
+      ]
+    },
+    "include": [
+      "src"
+    ],
+    "exclude": [
+      "node_modules",
+      "dist"
+    ]
   }
   
