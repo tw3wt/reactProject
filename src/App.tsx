@@ -4,7 +4,6 @@ import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import SignIn from '../src/app/components/sign-in/sign-in.component';
 import './app/components/sign-in/sign-in.component.css'
-import './app/components/sign-in/sign-in.component.html'
 
 function App() {
   return (
