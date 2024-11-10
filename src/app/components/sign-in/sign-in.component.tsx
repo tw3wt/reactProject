@@ -23,7 +23,7 @@ const SignInComponent: React.FC = () => {
     }
   };
 
-  // JSX를 반환해야 합니다
+  // JSX를 반환해야 합니다.
   return (
     <div>
       <input
