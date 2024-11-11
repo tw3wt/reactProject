@@ -94,9 +94,7 @@ const SignInComponent: React.FC = () => {
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder=""
-                      onFocus={() => focusInput('email')}
-                      onBlur={() => blurInput('email')}
+                      placeholder="Username or Email"
                     />
                     <label htmlFor="email">Username or Email</label>
                   </div>
@@ -106,9 +104,7 @@ const SignInComponent: React.FC = () => {
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder=""
-                      onFocus={() => focusInput('password')}
-                      onBlur={() => blurInput('password')}
+                      placeholder="Password"
                     />
                     <label htmlFor="password">Password</label>
                   </div>
@@ -123,13 +119,13 @@ const SignInComponent: React.FC = () => {
                     <label htmlFor="remember" className="read-text">Remember me</label>
                   </span>
                   <span className="checkbox forgot">
-                    <a href="#">Forgot Password?</a>
+                    <a href="javascript:void(0)">Forgot Password?</a>
                   </span>
                   <button type="submit" disabled={!isLoginFormValid}>Login</button>
                 </form>
-                <a href="#" className="account-check" onClick={toggleCard}>
+                <button className="account-check" onClick={toggleCard}>
                   Don't have an account? <b>Sign up</b>
-                </a>
+                </button>
               </div>
             )}
 
@@ -145,8 +141,6 @@ const SignInComponent: React.FC = () => {
                       value={registerEmail}
                       onChange={(e) => setRegisterEmail(e.target.value)}
                       placeholder="Email"
-                      onFocus={() => focusInput('registerEmail')}
-                      onBlur={() => blurInput('registerEmail')}
                     />
                     <label htmlFor="register-email">Email</label>
                   </div>
@@ -157,8 +151,6 @@ const SignInComponent: React.FC = () => {
                       value={registerPassword}
                       onChange={(e) => setRegisterPassword(e.target.value)}
                       placeholder="Password"
-                      onFocus={() => focusInput('registerPassword')}
-                      onBlur={() => blurInput('registerPassword')}
                     />
                     <label htmlFor="register-password">Password</label>
                   </div>
@@ -169,8 +161,6 @@ const SignInComponent: React.FC = () => {
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       placeholder="Confirm Password"
-                      onFocus={() => focusInput('confirmPassword')}
-                      onBlur={() => blurInput('confirmPassword')}
                     />
                     <label htmlFor="confirm-password">Confirm Password</label>
                   </div>
@@ -188,9 +178,9 @@ const SignInComponent: React.FC = () => {
                   </span>
                   <button type="submit" disabled={!isRegisterFormValid}>Register</button>
                 </form>
-                <a href="#" id="gotologin" className="account-check" onClick={toggleCard}>
+                <button id="gotologin" className="account-check" onClick={toggleCard}>
                   Already have an account? <b>Sign in</b>
-                </a>
+                </button>
               </div>
             )}
           </div>
