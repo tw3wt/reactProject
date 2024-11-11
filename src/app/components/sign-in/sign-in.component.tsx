@@ -12,11 +12,11 @@ const SignInComponent: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
-  const [isEmailFocused, setIsEmailFocused] = useState(false);
+  /**const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [isRegisterEmailFocused, setIsRegisterEmailFocused] = useState(false);
   const [isRegisterPasswordFocused, setIsRegisterPasswordFocused] = useState(false);
-  const [isConfirmPasswordFocused, setIsConfirmPasswordFocused] = useState(false);
+  const [isConfirmPasswordFocused, setIsConfirmPasswordFocused] = useState(false);**/
 
   const navigate = useNavigate();
 
