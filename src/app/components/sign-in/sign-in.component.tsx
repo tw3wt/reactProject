@@ -119,7 +119,7 @@ const SignInComponent: React.FC = () => {
                     <label htmlFor="remember" className="read-text">Remember me</label>
                   </span>
                   <span className="checkbox forgot">
-                    <a href="javascript:void(0)">Forgot Password?</a>
+                    <a href="#!">Forgot Password?</a>
                   </span>
                   <button type="submit" disabled={!isLoginFormValid}>Login</button>
                 </form>
