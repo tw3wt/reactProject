@@ -94,7 +94,7 @@ const SignInComponent: React.FC = () => {
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Email"
+                      placeholder=""
                       onFocus={() => focusInput('email')}
                       onBlur={() => blurInput('email')}
                     />
@@ -106,7 +106,7 @@ const SignInComponent: React.FC = () => {
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Password"
+                      placeholder=""
                       onFocus={() => focusInput('password')}
                       onBlur={() => blurInput('password')}
                     />
