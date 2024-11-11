@@ -59,7 +59,8 @@ const SignInComponent: React.FC = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const user = await AuthService.tryLogin(email, password);
+      //const user = 
+      await AuthService.tryLogin(email, password);
       navigate('/');
     } catch (error) {
       alert('Login failed');
