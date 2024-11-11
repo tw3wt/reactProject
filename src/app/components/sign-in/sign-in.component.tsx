@@ -35,7 +35,7 @@ const SignInComponent: React.FC = () => {
   };
 
   // 포커스 관리
-  const focusInput = (inputName: string) => {
+  /**const focusInput = (inputName: string) => {
     switch (inputName) {
       case 'email': setIsEmailFocused(true); break;
       case 'password': setIsPasswordFocused(true); break;
@@ -53,7 +53,7 @@ const SignInComponent: React.FC = () => {
       case 'registerPassword': setIsRegisterPasswordFocused(false); break;
       case 'confirmPassword': setIsConfirmPasswordFocused(false); break;
     }
-  };
+  };**/
 
   // 로그인 처리
   const handleLogin = async (e: React.FormEvent) => {
