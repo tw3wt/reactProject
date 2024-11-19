@@ -97,7 +97,7 @@ const SignInComponent: React.FC = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Username or Email"
                     />
-                    <label htmlFor="email">Username or Email</label>
+                    {/* <label htmlFor="email">Username or Email</label> */}
                   </div>
                   <div className="input">
                     <input
@@ -107,7 +107,7 @@ const SignInComponent: React.FC = () => {
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Password"
                     />
-                    <label htmlFor="password">Password</label>
+                    {/* <label htmlFor="password">Password</label> */}
                   </div>
                   <span className="checkbox remember">
                     <input
