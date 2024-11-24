@@ -79,13 +79,14 @@
   }
   
   #content-wrapper {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    position:relative;
+    position: relative; /* 자식 요소가 기준으로 삼을 수 있도록 설정 */
+    height: 100%; /* 부모 요소의 크기 설정 */
+    display: flex;
+    flex-direction: column; /* 세로로 배치 */
+    justify-content: space-between; /* 위아래 간격 균등 분배 */
+    align-items: center; /* 수평 중앙 정렬 */
   }
-  
+    
   input {
     font-size: 1.2rem;
     font-weight: 600;
@@ -290,24 +291,29 @@
   }
   
   .account-check {
-    width:100%;
-    text-align:center;
-    position:absolute;
-    bottom:15px;
-    left:0;
-    opacity:1;
-    text-decoration:none;
-    visibility:visible;
-    color:#fff;
-    padding:10px;
-    transition: all 0.2s ease;
-    z-index: 10;
-    display: block;
+    width: auto; /* 너비를 컨텐츠 크기에 맞춤 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    position: absolute; /* 부모 요소 기준으로 배치 */
+    bottom: 15px; /* 하단 여백 */
+    left: 50%; /* 수평 중앙 정렬 */
+    transform: translateX(-50%); /* 수평 중앙 정렬 */
+    color: #ffffff; /* 텍스트 색상 */
+    background-color: transparent; /* 배경색 제거 */
+    border: none; /* 테두리 제거 */
+    font-size: 14px; /* 폰트 크기 */
+    font-weight: bold; /* 폰트 굵기 */
+    padding: 5px 10px; /* 패딩 추가 */
+    text-decoration: none; /* 밑줄 제거 */
+    cursor: pointer; /* 포인터 커서 */
+    transition: all 0.3s ease; /* 애니메이션 효과 */
   }
   
-  .account-check:active {
-    color:#000;
-    transform: translateY(2px);
+  .account-check:hover {
+    color: #2069ff; /* 마우스 오버 시 텍스트 색상 변경 */
+  }
+  
+  .account-check b {
+    color: #ffffff; /* "Sign up" 강조 텍스트 색상 */
   }
   
   #register.hidden {
