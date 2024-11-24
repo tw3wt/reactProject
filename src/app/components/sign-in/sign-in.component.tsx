@@ -1,8 +1,5 @@
-// src/components/SignInComponent.tsx
 import React, { useState } from 'react';
-import AuthService from '../../util/auth/auth.service';
-import { useNavigate } from 'react-router-dom';
-import './sign-in.component.css'
+import './sign-in.component.css';
 
 const SignInComponent: React.FC = () => {
   const [isLoginVisible, setIsLoginVisible] = useState(true);
@@ -11,71 +8,29 @@ const SignInComponent: React.FC = () => {
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
-  /**const [isEmailFocused, setIsEmailFocused] = useState(false);
-  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-  const [isRegisterEmailFocused, setIsRegisterEmailFocused] = useState(false);
-  const [isRegisterPasswordFocused, setIsRegisterPasswordFocused] = useState(false);
-  const [isConfirmPasswordFocused, setIsConfirmPasswordFocused] = useState(false);**/
-
-  const navigate = useNavigate();
 
   // 유효성 검사
-  const isLoginFormValid = email && password;
+  const isLoginFormValid = email.trim() !== '' && password.trim() !== '';
   const isRegisterFormValid =
-    registerEmail &&
-    registerPassword &&
-    confirmPassword &&
+    registerEmail.trim() !== '' &&
+    registerPassword.trim() !== '' &&
+    confirmPassword.trim() !== '' &&
     registerPassword === confirmPassword &&
     acceptTerms;
 
-  // 로그인 및 회원가입 폼 전환
+  // 로그인 및 회원가입 카드 전환
   const toggleCard = () => {
     setIsLoginVisible(!isLoginVisible);
   };
 
-  // 포커스 관리
-  /**const focusInput = (inputName: string) => {
-    switch (inputName) {
-      case 'email': setIsEmailFocused(true); break;
-      case 'password': setIsPasswordFocused(true); break;
-      case 'registerEmail': setIsRegisterEmailFocused(true); break;
-      case 'registerPassword': setIsRegisterPasswordFocused(true); break;
-      case 'confirmPassword': setIsConfirmPasswordFocused(true); break;
-    }
-  };
-
-  const blurInput = (inputName: string) => {
-    switch (inputName) {
-      case 'email': setIsEmailFocused(false); break;
-      case 'password': setIsPasswordFocused(false); break;
-      case 'registerEmail': setIsRegisterEmailFocused(false); break;
-      case 'registerPassword': setIsRegisterPasswordFocused(false); break;
-      case 'confirmPassword': setIsConfirmPasswordFocused(false); break;
-    }
-  };**/
-
-  // 로그인 처리
-  const handleLogin = async (e: React.FormEvent) => {
+  // 회원가입 처리 (가짜 핸들러)
+  const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      //const user = 
-      await AuthService.tryLogin(email, password);
-      navigate('/');
-    } catch (error) {
-      alert('Login failed');
-    }
-  };
-
-  // 회원가입 처리
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await AuthService.tryRegister(registerEmail, registerPassword);
-      toggleCard();
-    } catch (error) {
-      alert('Registration failed');
+    if (isRegisterFormValid) {
+      alert('Registration Successful!');
+    } else {
+      alert('Please fill all required fields correctly.');
     }
   };
 
@@ -88,7 +43,7 @@ const SignInComponent: React.FC = () => {
             {/* 로그인 카드 */}
             {isLoginVisible && (
               <div className="card" id="login">
-                <form onSubmit={handleLogin}>
+                <form>
                   <h1>Sign in</h1>
                   <div className="input">
                     <input
@@ -98,7 +53,7 @@ const SignInComponent: React.FC = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Username or Email"
                     />
-                    {/* <label htmlFor="email">Username or Email</label> */}
+                    <label htmlFor="email">Username or Email</label>
                   </div>
                   <div className="input">
                     <input
@@ -108,25 +63,23 @@ const SignInComponent: React.FC = () => {
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Password"
                     />
-                    {/* <label htmlFor=" password">Password</label> */}
+                    <label htmlFor="password">Password</label>
                   </div>
                   <span className="checkbox remember">
-                    <input
-                      type="checkbox"
-                      id="remember"
-                      name="rememberMe"
-                      checked={rememberMe}
-                      onChange={(e) => setRememberMe(e.target.checked)}
-                    />
-                    <label htmlFor="remember" className="read-text">Remember me</label>
+                    <label>
+                      <input type="checkbox" />
+                      Remember me
+                    </label>
                   </span>
                   <span className="checkbox forgot">
-                    <a href="#!">Forgot Password?</a>
+                    <a href="#forgot-password">Forgot Password?</a>
                   </span>
-                  <button type="submit" disabled={!isLoginFormValid}>Login</button>
+                  <button type="submit" disabled={!isLoginFormValid}>
+                    Login
+                  </button>
                 </form>
                 <button className="account-check" onClick={toggleCard}>
-                  Don't have an account? <b>Sign up</b>
+                  Don’t have an account? <b>Sign up</b>
                 </button>
               </div>
             )}
@@ -167,18 +120,19 @@ const SignInComponent: React.FC = () => {
                     <label htmlFor="confirm-password">Confirm Password</label>
                   </div>
                   <span className="checkbox remember">
-                    <input
-                      type="checkbox"
-                      id="terms"
-                      name="acceptTerms"
-                      checked={acceptTerms}
-                      onChange={(e) => setAcceptTerms(e.target.checked)}
-                    />
-                    <label htmlFor="terms" className="read-text">
+                    <label>
+                      <input
+                        type="checkbox"
+                        id="terms"
+                        checked={acceptTerms}
+                        onChange={(e) => setAcceptTerms(e.target.checked)}
+                      />
                       I have read <b>Terms and Conditions</b>
                     </label>
                   </span>
-                  <button type="submit" disabled={!isRegisterFormValid}>Register</button>
+                  <button type="submit" disabled={!isRegisterFormValid}>
+                    Register
+                  </button>
                 </form>
                 <button id="gotologin" className="account-check" onClick={toggleCard}>
                   Already have an account? <b>Sign in</b>
@@ -193,3 +147,4 @@ const SignInComponent: React.FC = () => {
 };
 
 export default SignInComponent;
+
