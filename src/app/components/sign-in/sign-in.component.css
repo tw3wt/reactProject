@@ -295,12 +295,14 @@
     position:absolute;
     bottom:15px;
     left:0;
-    opacity:0;
+    opacity:1;
     text-decoration:none;
-    visibility:hidden;
+    visibility:visible;
     color:#fff;
     padding:10px;
     transition: all 0.2s ease;
+    z-index: 10;
+    display: block;
   }
   
   .account-check:active {
