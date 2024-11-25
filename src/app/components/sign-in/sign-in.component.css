@@ -263,10 +263,10 @@
     border-radius:10px;
     width:100%;
     max-width: 800px;
-    position:absolute;
+    position:relative;
     background-color:white;
     padding:27px 30px 46px 30px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.16);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
     transition: all 0.4s 0.1s ease;
   
     top: 50%;
