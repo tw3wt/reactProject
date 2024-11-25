@@ -31,7 +31,7 @@ const SignInComponent: React.FC = () => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Username or Email"
+                    placeholder=""
                   />
                   <label htmlFor="email">Username or Email</label>
                 </div>
@@ -41,7 +41,7 @@ const SignInComponent: React.FC = () => {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
+                    placeholder=""
                   />
                   <label htmlFor="password">Password</label>
                 </div>
