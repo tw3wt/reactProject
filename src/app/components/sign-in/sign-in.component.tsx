@@ -31,7 +31,7 @@ const SignInComponent: React.FC = () => {
     e.preventDefault();
     try {
       await AuthService.tryLogin(email, password);
-      navigate('/');
+      navigate('/home');
     } catch (error) {
       alert('Login failed');
     }
