@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './sign-in.component.css';
-import AuthService  from '../../util/auth/auth.service';'../../util/auth/auth.service'
 import { useNavigate } from 'react-router-dom';
+import './sign-in.component.css';
+import AuthService  from '../../util/auth/auth.service';
 
 const SignInComponent: React.FC = () => {
   const [isLoginVisible, setIsLoginVisible] = useState(true);
