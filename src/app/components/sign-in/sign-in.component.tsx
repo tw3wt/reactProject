@@ -31,7 +31,7 @@ const SignInComponent: React.FC = () => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder=""
+                    placeholder=" "
                   />
                   <label htmlFor="email">Username or Email</label>
                 </div>
