@@ -13,13 +13,13 @@ const SignInComponent: React.FC = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
 
-  const isLoginFormValid = email && password;
+  /**const isLoginFormValid = email && password;
   const isRegisterFormValid =
     registerEmail &&
     registerPassword &&
     confirmPassword &&
     registerPassword === confirmPassword &&
-    acceptTerms;
+    acceptTerms;**/
 
   const navigate = useNavigate();
 
@@ -55,7 +55,7 @@ const SignInComponent: React.FC = () => {
           <div id="content-wrapper">
             {/* 로그인 카드 */}
             <div className={`card ${!isLoginVisible ? 'hidden' : ''}`} id="login">
-              <form onSubmit={(e) => e.preventDefault()}>
+              <form onSubmit={handleLogin}>
                 <h1>Sign in</h1>
                 <div className={`input ${email ? 'active' : ''}`}>
                   <input
@@ -98,7 +98,7 @@ const SignInComponent: React.FC = () => {
 
             {/* 회원가입 카드 */}
             <div className={`card ${isLoginVisible ? 'hidden' : ''}`} id="register">
-              <form onSubmit={(e) => e.preventDefault()}>
+              <form onSubmit={handleRegister}>
                 <h1>Sign up</h1>
                 <div className={`input ${registerEmail ? 'active' : ''}`}>
                   <input
