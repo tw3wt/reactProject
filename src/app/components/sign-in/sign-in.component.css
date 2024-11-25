@@ -293,6 +293,7 @@
   .signup-section {
     background-color: #2069ff; /* 파란색 배경 */
     margin-top: 10px;
+    width: 100%;
     border-radius: 0 0 10px 10px; /* 하단 모서리를 둥글게 */
     text-align: center; /* 텍스트 가운데 정렬 */
     color: #2069ff;
