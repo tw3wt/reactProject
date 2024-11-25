@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './sign-in.component.css';
+import AuthService  from '../../util/auth/auth.service';'../../util/auth/auth.service'
+import { useNavigate } from 'react-router-dom';
 
 const SignInComponent: React.FC = () => {
   const [isLoginVisible, setIsLoginVisible] = useState(true);
@@ -11,8 +13,38 @@ const SignInComponent: React.FC = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
 
+  const isLoginFormValid = email && password;
+  const isRegisterFormValid =
+    registerEmail &&
+    registerPassword &&
+    confirmPassword &&
+    registerPassword === confirmPassword &&
+    acceptTerms;
+
+  const navigate = useNavigate();
+
   const toggleCard = () => {
     setIsLoginVisible(!isLoginVisible);
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await AuthService.tryLogin(email, password);
+      navigate('/');
+    } catch (error) {
+      alert('Login failed');
+    }
+  };
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await AuthService.tryRegister(registerEmail, registerPassword);
+      toggleCard();
+    } catch (error) {
+      alert('Registration failed');
+    }
   };
 
   return (
@@ -41,7 +73,7 @@ const SignInComponent: React.FC = () => {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder=" "
+                    placeholder=""
                   />
                   <label htmlFor="password">Password</label>
                 </div>
