@@ -59,7 +59,7 @@ const SignInComponent: React.FC = () => {
                 </span>
                 <button type="submit">Login</button>
               </form>
-              <a href="#!" className="account-check" onClick={toggleCard}>
+              <a href="#/sign-in" className="account-check" onClick={toggleCard}>
                 Don't have an account? <b>Sign up</b>
               </a>
             </div>
@@ -111,7 +111,7 @@ const SignInComponent: React.FC = () => {
                 </span>
                 <button type="submit">Register</button>
               </form>
-              <a href="#!" id="gotologin" className="account-check" onClick={toggleCard}>
+              <a href="#/sign-in" id="gotologin" className="account-check" onClick={toggleCard}>
                 Already have an account? <b>Sign in</b>
               </a>
             </div>
