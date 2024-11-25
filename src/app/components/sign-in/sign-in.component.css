@@ -290,6 +290,14 @@
     top: 5svh;
   }
   
+  .signup-section {
+    margin-top: 20px; /* 로그인 버튼과 간격 */
+    background-color: #2069ff; /* 파란색 배경 */
+    padding: 15px 0; /* 위아래 여백 */
+    border-radius: 0 0 10px 10px; /* 카드 하단 모서리 둥글게 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+  }
+
   .account-check {
     margin-top: 20px;
     text-align: center; /* 텍스트 중앙 정렬 */
@@ -297,7 +305,6 @@
     left: 50%; /* 수평 중앙 정렬 */
     transform: translateX(-50%); /* 수평 중앙 정렬 */
     color: #ffffff; /* 텍스트 색상 */
-    background-color: #2069ff;
     border: none; /* 테두리 제거 */
     font-size: 14px; /* 폰트 크기 */
     padding: 5px 10px; /* 패딩 추가 */
