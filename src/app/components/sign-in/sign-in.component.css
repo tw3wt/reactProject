@@ -292,10 +292,8 @@
   
   .account-check {
     margin-top: 20px;
-    width: auto; /* 너비를 컨텐츠 크기에 맞춤 */
     text-align: center; /* 텍스트 중앙 정렬 */
     position: absolute; /* 부모 요소 기준으로 배치 */
-    bottom: 15px; /* 하단 여백 */
     left: 50%; /* 수평 중앙 정렬 */
     transform: translateX(-50%); /* 수평 중앙 정렬 */
     color: #ffffff; /* 텍스트 색상 */
