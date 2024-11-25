@@ -79,9 +79,9 @@ const SignInComponent: React.FC = () => {
                   </button>
                 </form>
                 <div className="signup-container">
-                  <a className="account-check" onClick={toggleCard}>
+                  <div className="account-check" onClick={toggleCard}>
                     Don’t have an account? <b>Sign up</b>
-                  </a>
+                  </div>
                 </div>
               </div>
             )}
