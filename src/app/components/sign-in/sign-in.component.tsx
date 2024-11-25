@@ -74,7 +74,7 @@ const SignInComponent: React.FC = () => {
                     type="email"
                     value={registerEmail}
                     onChange={(e) => setRegisterEmail(e.target.value)}
-                    placeholder="Email"
+                    placeholder=""
                   />
                   <label htmlFor="register-email">Email</label>
                 </div>
@@ -84,7 +84,7 @@ const SignInComponent: React.FC = () => {
                     type="password"
                     value={registerPassword}
                     onChange={(e) => setRegisterPassword(e.target.value)}
-                    placeholder="Password"
+                    placeholder=""
                   />
                   <label htmlFor="register-password">Password</label>
                 </div>
@@ -94,7 +94,7 @@ const SignInComponent: React.FC = () => {
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    placeholder="Confirm Password"
+                    placeholder=""
                   />
                   <label htmlFor="confirm-password">Confirm Password</label>
                 </div>
