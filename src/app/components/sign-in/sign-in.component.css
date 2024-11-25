@@ -83,7 +83,6 @@
     height: 100%; /* 부모 요소의 크기 설정 */
     display: flex;
     flex-direction: column; /* 세로로 배치 */
-    justify-content: space-between; /* 위아래 간격 균등 분배 */
     align-items: center; /* 수평 중앙 정렬 */
   }
     
