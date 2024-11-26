@@ -139,12 +139,18 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
           >
             {movies && movies.length > 0 ? (
               movies.map((movie) => (
-                <div key={movie.id} className="movie-card">
+                <div
+                  className="movie-card"
+                  onClick={() => toggleWishlist(movie)}
+                >
                   <img src={getImageUrl(movie.poster_path)} alt={movie.title} />
+                  {isInWishlist(movie.id) && (
+                    <div className="wishlist-indicator">👍</div>
+                  )}
                 </div>
               ))
             ) : (
-              <p>Loading...</p>
+              <p> Loading...</p>
             )}
           </div>
         </div>
