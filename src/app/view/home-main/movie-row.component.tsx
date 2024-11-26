@@ -98,13 +98,17 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
       <h2>{title}</h2>
       <div
         className="slider-container"
+        onWheel={handleWheel}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouchStart}
       >
         <button
           className="slider-button left"
           onClick={() => slide("left")}
-          style={{ opacity: showButtons && scrollAmount > 0 ? 1 : 0 }}
+          style={{
+            opacity: showButtons && scrollAmount > 0 ? 1 : 0,
+          }}
           disabled={scrollAmount <= 0}
         >
           &lt;
@@ -142,7 +146,9 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
         <button
           className="slider-button right"
           onClick={() => slide("right")}
-          style={{ opacity: showButtons && scrollAmount < maxScroll ? 1 : 0 }}
+          style={{
+            opacity: showButtons && scrollAmount < maxScroll ? 1 : 0,
+          }}
           disabled={scrollAmount >= maxScroll}
         >
           &gt;
