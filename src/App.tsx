@@ -18,8 +18,8 @@ function App() {
         <Route path="popular" element={<HomePopular />} />
         <Route path="wishlist" element={<HomeWishlist />} />
         <Route path="search" element={<HomeSearch />} />
+        <Route path='sign-in' element={<SignIn/>} />
       </Route>
-      <Route path='/sign-in' element={<SignIn/>} />
     </Routes>
   );
 }
