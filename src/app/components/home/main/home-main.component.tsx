@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useCallback } from 'react';
 import BannerComponent from '../../../view/home-main/banner.component';
 import MovieRowComponent from '../../../view/home-main/movie-row.component';
 import {useMovieService} from '../../../util/movie/URL'
@@ -36,28 +36,25 @@ const HomeMain: React.FC = () => {
   };
 
   // Load featured movie data
-  const loadFeaturedMovie = async () => {
+  const loadFeaturedMovie = useCallback(async () => {
     try {
       const movie = await fetchFeaturedMovie(apiKey);
       setFeaturedMovie(movie);
     } catch (error) {
-      console.error("Failed to load featured movie:", error);
+      console.error("Error fetching featured movie:", error);
     }
-  };
+  }, [fetchFeaturedMovie, apiKey]);
 
-  useEffect(() => {
-    // Initialize URLs
+  const initializeURLs = useCallback(() => {
     setPopularMoviesUrl(getURL4PopularMovies(apiKey));
     setNewReleasesUrl(getURL4ReleaseMovies(apiKey));
     setActionMoviesUrl(getURL4GenreMovies(apiKey, "28"));
+  }, [getURL4PopularMovies, getURL4ReleaseMovies, getURL4GenreMovies, apiKey]);
 
-    // Load featured movie
+  useEffect(() => {
+    initializeURLs();
     loadFeaturedMovie();
-
-    // Initialize scroll listener
-    const cleanup = initializeScrollListener();
-    return cleanup; // Cleanup scroll listener on component unmount
-  }, [apiKey]);
+  }, [initializeURLs, loadFeaturedMovie]);
 
   return (
     <div className="home">
