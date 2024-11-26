@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef ,useCallback} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Movie } from "../../../models/types";
 import WishlistService from "../../util/movie/wishlist";
@@ -19,12 +19,12 @@ const MovieGrid: React.FC<MovieGridProps> = ({ fetchUrl }) => {
 
   const totalPages = Math.ceil(movies.length / moviesPerPage);
 
-  const handleResize = useCallback(() => {
+  const handleResize = () => {
     setIsMobile(window.innerWidth <= 768);
     calculateLayout();
-  },[]);
+  };
 
-  const calculateLayout = useCallback(() => {
+  const calculateLayout = () => {
     if (gridContainerRef.current) {
       const container = gridContainerRef.current;
       const containerWidth = container.offsetWidth;
@@ -39,9 +39,9 @@ const MovieGrid: React.FC<MovieGridProps> = ({ fetchUrl }) => {
       setRowSize(newRowSize);
       setMoviesPerPage(newRowSize * maxRows);
     }
-  },[]);
+  };
 
-  const fetchMovies = useCallback(async () => {
+  const fetchMovies = async () => {
     try {
       const totalMoviesNeeded = 120;
       const numberOfPages = Math.ceil(totalMoviesNeeded / 20);
@@ -58,7 +58,7 @@ const MovieGrid: React.FC<MovieGridProps> = ({ fetchUrl }) => {
     } catch (error) {
       console.error("Error fetching movies:", error);
     }
-  },[]);
+  };
 
   const getImageUrl = (path: string) => `https://image.tmdb.org/t/p/w300${path}`;
 
@@ -107,7 +107,7 @@ const MovieGrid: React.FC<MovieGridProps> = ({ fetchUrl }) => {
         clearTimeout(wishlistTimer.current);
       }
     };
-  }, []);
+  }, [fetchMovies, calculateLayout, handleResize]);
 
   return (
     <div className="movie-grid" ref={gridContainerRef}>
