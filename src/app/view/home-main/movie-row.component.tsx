@@ -10,6 +10,7 @@ interface MovieRowProps {
 
 const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
   const [movies, setMovies] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [scrollAmount, setScrollAmount] = useState(0);
   const [showButtons, setShowButtons] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
@@ -21,17 +22,19 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
   const [touchEndX, setTouchEndX] = useState(0);
 
   // Fetch movies on mount
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const response = await axios.get(fetchUrl);
-        setMovies(response.data.results);
-        setTimeout(() => calculateMaxScroll(), 0);
-      } catch (error) {
-        console.error('Error fetching movies:', error);
-      }
-    };
+  const fetchMovies = async () => {
+    try {
+      const response = await fetch(fetchUrl);
+      const data = await response.json();
+      setMovies(data.results || []); // 결과를 상태에 저장
+      setLoading(false); // 로딩 상태 해제
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+      setLoading(false); // 에러가 발생해도 로딩 상태 해제
+    }
+  };
 
+  useEffect(() => {
     fetchMovies();
   }, [fetchUrl]);
 
@@ -132,13 +135,15 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
           &lt;
         </button>
         <div className="slider-window" ref={sliderWindowRef}>
-          <div
-            className="movie-slider"
-            ref={sliderRef}
-            style={{ transform: `translateX(-${scrollAmount}px)` }}
-          >
-            {movies && movies.length > 0 ? (
-              movies.map((movie) => (
+          {loading ? ( // 로딩 중일 때 메시지 표시
+            <p>Loading...</p>
+          ) : (
+            <div
+              className="movie-slider"
+              ref={sliderRef}
+              style={{ transform: `translateX(-${scrollAmount}px)` }}
+            >
+              {movies.map((movie) => (
                 <div
                   className="movie-card"
                   onClick={() => toggleWishlist(movie)}
@@ -148,11 +153,9 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
                     <div className="wishlist-indicator">👍</div>
                   )}
                 </div>
-              ))
-            ) : (
-              <p> Loading...</p>
-            )}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
         <button
           className="slider-button right"
