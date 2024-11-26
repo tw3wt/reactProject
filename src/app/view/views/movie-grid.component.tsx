@@ -19,11 +19,6 @@ const MovieGrid: React.FC<MovieGridProps> = ({ fetchUrl }) => {
 
   const totalPages = Math.ceil(movies.length / moviesPerPage);
 
-  const handleResize = useCallback(() => {
-    setIsMobile(window.innerWidth <= 768);
-    calculateLayout();
-  },[]);
-
   const calculateLayout = useCallback(() => {
     if (gridContainerRef.current) {
       const container = gridContainerRef.current;
@@ -39,7 +34,12 @@ const MovieGrid: React.FC<MovieGridProps> = ({ fetchUrl }) => {
       setRowSize(newRowSize);
       setMoviesPerPage(newRowSize * maxRows);
     }
-  },[]);
+  },[isMobile]);
+
+  const handleResize = useCallback(() => {
+    setIsMobile(window.innerWidth <= 768);
+    calculateLayout();
+  },[calculateLayout]);
 
   const fetchMovies = useCallback(async () => {
     try {
