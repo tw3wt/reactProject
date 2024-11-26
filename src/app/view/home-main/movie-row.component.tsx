@@ -113,26 +113,24 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
     return WishlistService.isInWishlist(movieId);
   };
 
+  const atLeftEdge = scrollAmount <= 0;
+  const atRightEdge = scrollAmount >= maxScroll;
+
   return (
     <div className="movie-row">
       <h2>{title}</h2>
       <div
-        className="slider-container"
-        onWheel={handleWheel}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-      >
-        <button
-          className="slider-button left"
-          onClick={() => slide('left')}
-          style={{ opacity: showButtons && scrollAmount > 0 ? 1 : 0 }}
-          disabled={scrollAmount <= 0}
-        >
-          &lt;
-        </button>
+          className="slider-container"
+          onWheel={handleWheel}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}>
+        <button className="slider-button left"
+                onClick={() => slide('left')}
+                style={{ opacity: showButtons && !atLeftEdge ? 1 : 0 }}
+                disabled={atLeftEdge}>&lt;</button>
         <div className="slider-window" ref={sliderWindowRef}>
           {loading ? ( // 로딩 중일 때 메시지 표시
             <p>Loading...</p>
@@ -160,12 +158,10 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
           className="slider-button right"
           onClick={() => slide('right')}
           style={{
-            opacity: showButtons && scrollAmount < maxScroll ? 1 : 0,
+            opacity: showButtons && atRightEdge ? 1 : 0,
           }}
-          disabled={scrollAmount >= maxScroll}
-        >
-          &gt;
-        </button>
+          disabled={atRightEdge}
+        >&gt;</button>
       </div>
     </div>
   );
