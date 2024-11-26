@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import BannerComponent from '../../../view/home-main/banner.component';
 import MovieRowComponent from '../../../view/home-main/movie-row.component';
 import {useMovieService} from '../../../util/movie/URL'
-import axios from 'axios';
 import './home-main.component.css';
 
 const HomeMain: React.FC = () => {
