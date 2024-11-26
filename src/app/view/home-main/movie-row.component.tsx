@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react';
-import axios from "axios";
 import './movie-row.component.css';
 import WishlistService from '../../util/movie/wishlist';
 
@@ -36,7 +35,7 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
 
   useEffect(() => {
     fetchMovies();
-  }, [fetchUrl]);
+  }, [fetchUrl,fetchMovies]);
 
   // Recalculate max scroll on window resize
   useEffect(() => {
