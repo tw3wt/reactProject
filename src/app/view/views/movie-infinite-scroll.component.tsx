@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 
 interface Movie {
   id: number;
@@ -26,7 +26,7 @@ const MovieInfiniteScroll: React.FC<MovieInfiniteScrollProps> = ({
   const wishlist = useRef<Set<number>>(new Set());
   const loadingTriggerRef = useRef<HTMLDivElement | null>(null);
 
-  const fetchMovies = async (page: number) => {
+  const fetchMovies = useCallback(async (page: number) => {
     setIsLoading(true);
     try {
       const response = await fetch(
@@ -39,7 +39,7 @@ const MovieInfiniteScroll: React.FC<MovieInfiniteScrollProps> = ({
     } finally {
       setIsLoading(false);
     }
-  };
+  },[]);
 
   const toggleWishlist = (movie: Movie) => {
     wishlist.current = new Set(wishlist.current);
@@ -81,14 +81,16 @@ const MovieInfiniteScroll: React.FC<MovieInfiniteScrollProps> = ({
       threshold: 0.1,
     });
 
-    if (loadingTriggerRef.current) {
-      observer.observe(loadingTriggerRef.current);
+    const currentRef = loadingTriggerRef.current;
+
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     window.addEventListener("scroll", handleScroll);
 
     return () => {
-      if (loadingTriggerRef.current) observer.unobserve(loadingTriggerRef.current);
+      if (currentRef) observer.unobserve(currentRef);
       window.removeEventListener("scroll", handleScroll);
     };
   }, [currentPage, isLoading]);
