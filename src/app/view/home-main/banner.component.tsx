@@ -13,7 +13,7 @@ const BannerComponent: React.FC<BannerProps> = ({ movie }) => {
   return (
     <div
       className="banner"
-      style={{ backgroundImage: `https://image.tmdb.org/t/p/original${movie.backdrop_path}` }}
+      style={{ backgroundImage: `${movie.poster_path}` }}
     >
       <div className="banner-content">
         <h1>{movie.title}</h1>
