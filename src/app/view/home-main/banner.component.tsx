@@ -2,11 +2,7 @@ import React from 'react';
 import './banner.component.css';
 
 interface BannerProps {
-  movie: {
-    title: string;
-    overview: string;
-    backdropUrl: string;
-  } | null;
+  movie: any
 }
 
 const BannerComponent: React.FC<BannerProps> = ({ movie }) => {
@@ -14,10 +10,14 @@ const BannerComponent: React.FC<BannerProps> = ({ movie }) => {
     return null; // 영화 정보가 없으면 아무 것도 렌더링하지 않음
   }
 
+  function backdropUrl(): string {
+    return movie ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}` : '';
+  }
+
   return (
     <div
       className="banner"
-      style={{ backgroundImage: `url(${movie.backdropUrl})` }}
+      style={{ backgroundImage: `https://image.tmdb.org/t/p/original${movie.backdrop_path}` }}
     >
       <div className="banner-content">
         <h1>{movie.title}</h1>
