@@ -21,21 +21,21 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
   const [touchEndX, setTouchEndX] = useState(0);
 
   // Fetch movies on mount
-  const fetchMovies = async () => {
-    try {
-      const response = await fetch(fetchUrl);
-      const data = await response.json();
-      setMovies(data.results || []); // 결과를 상태에 저장
-      setLoading(false); // 로딩 상태 해제
-    } catch (error) {
-      console.error('Error fetching movies:', error);
-      setLoading(false); // 에러가 발생해도 로딩 상태 해제
-    }
-  };
-
   useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch(fetchUrl);
+        const data = await response.json();
+        setMovies(data.results || []);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching movies:', error);
+        setLoading(false);
+      }
+    };
+  
     fetchMovies();
-  }, [fetchUrl,fetchMovies]);
+  }, [fetchUrl]);
 
   // Recalculate max scroll on window resize
   useEffect(() => {
