@@ -10,10 +10,6 @@ const BannerComponent: React.FC<BannerProps> = ({ movie }) => {
     return null; // 영화 정보가 없으면 아무 것도 렌더링하지 않음
   }
 
-  function backdropUrl(): string {
-    return movie ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}` : '';
-  }
-
   return (
     <div
       className="banner"
