@@ -98,17 +98,13 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
       <h2>{title}</h2>
       <div
         className="slider-container"
-        onWheel={handleWheel}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        onTouchStart={handleTouchStart}
       >
         <button
           className="slider-button left"
           onClick={() => slide("left")}
-          style={{
-            opacity: showButtons && scrollAmount > 0 ? 1 : 0,
-          }}
+          style={{ opacity: showButtons && scrollAmount > 0 ? 1 : 0 }}
           disabled={scrollAmount <= 0}
         >
           &lt;
@@ -121,30 +117,32 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
               transform: `translateX(${-scrollAmount}px)`,
             }}
           >
-            {movies.map((movie) => (
-              <div
-                key={movie.id}
-                className="movie-card"
-                onClick={() => toggleWishlist(movie)}
-              >
-                <img
-                  src={getImageUrl(movie.poster_path)}
-                  alt={movie.title}
-                  loading="lazy"
-                />
-                {isInWishlist(movie.id) && (
-                  <div className="wishlist-indicator">👍</div>
-                )}
-              </div>
-            ))}
+            {movies && movies.length > 0 ? (
+              movies.map((movie) => (
+                <div
+                  key={movie.id}
+                  className="movie-card"
+                  onClick={() => WishlistService.toggleWishlist(movie)}
+                >
+                  <img
+                    src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+                    alt={movie.title}
+                    loading="lazy"
+                  />
+                  {WishlistService.isInWishlist(movie.id) && (
+                    <div className="wishlist-indicator">👍</div>
+                  )}
+                </div>
+              ))
+            ) : (
+              <p>Loading movies...</p>
+            )}
           </div>
         </div>
         <button
           className="slider-button right"
           onClick={() => slide("right")}
-          style={{
-            opacity: showButtons && scrollAmount < maxScroll ? 1 : 0,
-          }}
+          style={{ opacity: showButtons && scrollAmount < maxScroll ? 1 : 0 }}
           disabled={scrollAmount >= maxScroll}
         >
           &gt;
