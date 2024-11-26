@@ -16,16 +16,6 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const sliderWindowRef = useRef<HTMLDivElement | null>(null);
 
-  const fetchMovies = useCallback(async () => {
-    try {
-      const response = await axios.get(fetchUrl);
-      setMovies(response.data.results);
-      setTimeout(calculateMaxScroll, 0);
-    } catch (error) {
-      console.error("Error fetching movies:", error);
-    }
-  }, [fetchUrl]);
-
   const calculateMaxScroll = useCallback(() => {
     if (sliderRef.current && sliderWindowRef.current) {
       setMaxScroll(
@@ -36,6 +26,16 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
       );
     }
   }, []);
+
+  const fetchMovies = useCallback(async () => {
+    try {
+      const response = await axios.get(fetchUrl);
+      setMovies(response.data.results);
+      setTimeout(calculateMaxScroll, 0);
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+    }
+  }, [fetchUrl,calculateMaxScroll]);
 
   const slide = (direction: "left" | "right", amount: number | null = null) => {
     const slideAmount =
