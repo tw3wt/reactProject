@@ -10,67 +10,96 @@ interface MovieRowProps {
 
 const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
   const [movies, setMovies] = useState<any[]>([]);
-  const [scrollAmount, setScrollAmount] = useState<number>(0);
-  const [showButtons, setShowButtons] = useState<boolean>(false);
-  const [maxScroll, setMaxScroll] = useState<number>(0);
+  const [scrollAmount, setScrollAmount] = useState(0);
+  const [showButtons, setShowButtons] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [maxScroll, setMaxScroll] = useState(0);
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const sliderWindowRef = useRef<HTMLDivElement | null>(null);
 
-  const calculateMaxScroll = useCallback(() => {
-    if (sliderRef.current && sliderWindowRef.current) {
-      setMaxScroll(
-        Math.max(
-          0,
-          sliderRef.current.scrollWidth - sliderWindowRef.current.clientWidth
-        )
-      );
-    }
-  }, []);
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [touchEndX, setTouchEndX] = useState(0);
 
-  const fetchMovies = useCallback(async () => {
-    try {
-      const response = await axios.get(fetchUrl);
-      setMovies(response.data.results);
-      setTimeout(calculateMaxScroll, 0);
-    } catch (error) {
-      console.error("Error fetching movies:", error);
-    }
-  }, [fetchUrl,calculateMaxScroll]);
+  // Fetch movies on mount
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await axios.get(fetchUrl);
+        setMovies(response.data.results);
+        setTimeout(() => calculateMaxScroll(), 0);
+      } catch (error) {
+        console.error('Error fetching movies:', error);
+      }
+    };
 
-  const slide = (direction: "left" | "right", amount: number | null = null) => {
-    const slideAmount =
-      amount || (sliderWindowRef.current?.clientWidth || 0) * 0.8;
-    if (direction === "left") {
-      setScrollAmount((prev) => Math.max(0, prev - slideAmount));
-    } else {
-      setScrollAmount((prev) => Math.min(maxScroll, prev + slideAmount));
-    }
+    fetchMovies();
+  }, [fetchUrl]);
+
+  // Recalculate max scroll on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      calculateMaxScroll();
+      setScrollAmount((prev) => Math.min(prev, maxScroll));
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [maxScroll]);
+
+  const getImageUrl = (path: string): string => {
+    return `https://image.tmdb.org/t/p/w300${path}`;
   };
 
-  const handleMouseMove = () => {
-    setShowButtons(true);
+  const slide = (direction: 'left' | 'right', amount: number | null = null) => {
+    if (!sliderWindowRef.current) return;
+
+    const slideAmount = amount || sliderWindowRef.current.clientWidth * 0.8;
+    setScrollAmount((prev) =>
+      direction === 'left'
+        ? Math.max(0, prev - slideAmount)
+        : Math.min(maxScroll, prev + slideAmount)
+    );
   };
 
-  const handleMouseLeave = () => {
-    setShowButtons(false);
-  };
+  const handleMouseMove = () => setShowButtons(true);
+
+  const handleMouseLeave = () => setShowButtons(false);
 
   const handleWheel = (event: React.WheelEvent) => {
     event.preventDefault();
-    const direction = event.deltaY > 0 ? "right" : "left";
+    if (isScrolling) return;
+
+    setIsScrolling(true);
+    const direction = event.deltaY > 0 ? 'right' : 'left';
     slide(direction);
+
+    setTimeout(() => setIsScrolling(false), 500);
   };
 
   const handleTouchStart = (event: React.TouchEvent) => {
-    const touchStartX = event.touches[0].clientX;
-    const touchEndX = event.touches[0].clientX;
+    setTouchStartX(event.touches[0].clientX);
+    setTouchEndX(event.touches[0].clientX);
+  };
 
-    const minSwipeDistance = 50;
+  const handleTouchMove = (event: React.TouchEvent) => {
+    setTouchEndX(event.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
     const touchDiff = touchStartX - touchEndX;
+    const minSwipeDistance = 50;
 
     if (Math.abs(touchDiff) > minSwipeDistance) {
-      const direction = touchDiff > 0 ? "right" : "left";
+      const direction = touchDiff > 0 ? 'right' : 'left';
       slide(direction, Math.abs(touchDiff));
+    }
+  };
+
+  const calculateMaxScroll = () => {
+    if (sliderRef.current && sliderWindowRef.current) {
+      const maxScrollValue =
+        sliderRef.current.scrollWidth - sliderWindowRef.current.clientWidth;
+      setMaxScroll(Math.max(0, maxScrollValue));
     }
   };
 
@@ -78,20 +107,9 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
     WishlistService.toggleWishlist(movie);
   };
 
-  const isInWishlist = (movieId: number) => {
+  const isInWishlist = (movieId: number): boolean => {
     return WishlistService.isInWishlist(movieId);
   };
-
-  const getImageUrl = (path: string): string =>
-    `https://image.tmdb.org/t/p/w300${path}`;
-
-  useEffect(() => {
-    fetchMovies();
-    window.addEventListener("resize", calculateMaxScroll);
-    return () => {
-      window.removeEventListener("resize", calculateMaxScroll);
-    };
-  }, [fetchMovies, calculateMaxScroll]);
 
   return (
     <div className="movie-row">
