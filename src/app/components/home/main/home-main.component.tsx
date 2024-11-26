@@ -19,7 +19,7 @@ const HomeMain: React.FC = () => {
   } = useMovieService();
 
   // Scroll event listener reference
-  const initializeScrollListener = () => {
+  /**const initializeScrollListener = () => {
     const handleScroll = () => {
       const header = document.querySelector(".app-header");
       if (window.scrollY > 50) {
@@ -33,7 +33,7 @@ const HomeMain: React.FC = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll); // Cleanup
     };
-  };
+  };**/
 
   // Load featured movie data
   const loadFeaturedMovie = useCallback(async () => {
