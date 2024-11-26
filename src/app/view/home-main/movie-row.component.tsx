@@ -137,18 +137,15 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
             ref={sliderRef}
             style={{ transform: `translateX(-${scrollAmount}px)` }}
           >
-            {movies.map((movie) => (
-              <div
-                key={movie.id}
-                className="movie-card"
-                onClick={() => toggleWishlist(movie)}
-              >
-                <img src={getImageUrl(movie.poster_path)} alt={movie.title} />
-                {isInWishlist(movie.id) && (
-                  <div className="wishlist-indicator">👍</div>
-                )}
-              </div>
-            ))}
+            {movies && movies.length > 0 ? (
+              movies.map((movie) => (
+                <div key={movie.id} className="movie-card">
+                  <img src={getImageUrl(movie.poster_path)} alt={movie.title} />
+                </div>
+              ))
+            ) : (
+              <p>Loading...</p>
+            )}
           </div>
         </div>
         <button
