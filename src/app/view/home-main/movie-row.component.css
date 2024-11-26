@@ -76,11 +76,11 @@
 }
   
 .slider-button.left {
-  left: 0;
+  left: 10px;
 }
   
 .slider-button.right {
-  right: 0;
+  right: 10px;
  }
   
 .slider-button:disabled {
