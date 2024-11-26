@@ -15,11 +15,11 @@ function App() {
     <Routes>
       <Route path="/" element={<HomeComponent/>}>
         <Route index element={<HomeMain />} />
-        <Route path="popular" element={<HomePopular />} />
-        <Route path="wishlist" element={<HomeWishlist />} />
-        <Route path="search" element={<HomeSearch />} />
-        <Route path='sign-in' element={<SignIn/>} />
+        <Route path="/popular" element={<HomePopular />} />
+        <Route path="/wishlist" element={<HomeWishlist />} />
+        <Route path="/search" element={<HomeSearch />} />
       </Route>
+      <Route path='/sign-in' element={<SignIn/>} />
     </Routes>
   );
 }
