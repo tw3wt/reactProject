@@ -52,7 +52,7 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
     return `https://image.tmdb.org/t/p/w300${path}`;
   };
 
-  const slide = (direction: 'left' | 'right', amount: number | null = null) => {
+  const slide = (direction: 'left' | 'right', amount: number | null = null) => {    
     if (!sliderWindowRef.current) return;
 
     const slideAmount = amount || sliderWindowRef.current.clientWidth * 0.8;

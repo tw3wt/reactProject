@@ -9,10 +9,10 @@ export interface Movie {
   id: number;
   title: string;
   poster_path: string;
-  original_language: string;
-  vote_average: number;
   backdrop_path?: string;
   overview?: string;
+  original_language: string;
+  vote_average: number;
 }
 
 export interface APIResponse {
