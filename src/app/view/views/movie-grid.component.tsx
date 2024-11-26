@@ -58,7 +58,7 @@ const MovieGrid: React.FC<MovieGridProps> = ({ fetchUrl }) => {
     } catch (error) {
       console.error("Error fetching movies:", error);
     }
-  },[]);
+  },[fetchUrl]);
 
   const getImageUrl = (path: string) => `https://image.tmdb.org/t/p/w300${path}`;
 

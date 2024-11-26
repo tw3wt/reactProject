@@ -39,7 +39,7 @@ const MovieInfiniteScroll: React.FC<MovieInfiniteScrollProps> = ({
     } finally {
       setIsLoading(false);
     }
-  },[]);
+  },[apiKey,genreCode,sortingOrder,voteAverage]);
 
   const toggleWishlist = (movie: Movie) => {
     wishlist.current = new Set(wishlist.current);
@@ -93,7 +93,7 @@ const MovieInfiniteScroll: React.FC<MovieInfiniteScrollProps> = ({
       if (currentRef) observer.unobserve(currentRef);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [currentPage, isLoading]);
+  }, [currentPage, isLoading, fetchMovies]);
 
   return (
     <div className="movie-grid">
