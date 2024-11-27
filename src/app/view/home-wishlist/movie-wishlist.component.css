@@ -15,6 +15,10 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-top: 80px; /* 헤더 높이만큼 여백 추가 */
+    padding: 20px;
+    box-sizing: border-box; /* 패딩 포함 높이를 정확히 계산 */
+    background-color: #141414;
   }
   
   .grid-container {

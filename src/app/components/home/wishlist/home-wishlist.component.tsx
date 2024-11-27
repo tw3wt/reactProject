@@ -8,4 +8,3 @@ const HomeWishlist: React.FC = () => {
 };
 
 export default HomeWishlist;
-
