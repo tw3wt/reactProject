@@ -39,7 +39,7 @@ const HomeMain: React.FC = () => {
   }, [apiKey, fetchFeaturedMovie, getURL4PopularMovies, getURL4ReleaseMovies, getURL4GenreMovies]);
 
   return (
-    <div className="home">
+    <>
       {/* 주요 영화 배너 */}
       <BannerComponent movie={featuredMovie} />
 
@@ -47,7 +47,7 @@ const HomeMain: React.FC = () => {
       <MovieRowComponent title="인기 영화" fetchUrl={popularMoviesUrl} />
       <MovieRowComponent title="최신 영화" fetchUrl={newReleasesUrl} />
       <MovieRowComponent title="액션 영화" fetchUrl={actionMoviesUrl} />
-    </div>
+    </>
   );
 };
 
