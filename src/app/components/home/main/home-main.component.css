@@ -10,7 +10,3 @@
 ::ng-deep body {
   background-color: #141414 !important;
 }
-
-.home {
-  margin-top: 80px; /* 헤더 높이만큼 여백 추가 */
-}
