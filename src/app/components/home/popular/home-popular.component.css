@@ -19,6 +19,10 @@
   background-color: #535bf2;
 }
 
+.popular-container {
+  margin-top: 50px;
+}
+
 @media (max-width: 768px) {
   .view-toggle {
     margin-top: 80px;
