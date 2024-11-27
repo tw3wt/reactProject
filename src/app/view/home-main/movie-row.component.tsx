@@ -49,7 +49,7 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [maxScroll]);
+  }, [maxScroll,movies]);
 
   const getImageUrl = (path: string): string => {
     return `https://image.tmdb.org/t/p/w300${path}`;
