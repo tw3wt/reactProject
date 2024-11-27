@@ -23,6 +23,21 @@
   margin-top: 50px;
 }
 
+.label{
+  width: 170px;
+}
+.clear-options {
+  min-width: 120px;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  border: 1px solid #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 0 !important;
+}
+
 @media (max-width: 768px) {
   .view-toggle {
     margin-top: 80px;
