@@ -6,10 +6,10 @@ import './home.component.css'
 const HomeComponent: React.FC = () => {
   return (
     <div id="app">
-      <Header />
-      <div id="container">
-        <Outlet />
+      <div id = "container">
+        <Header />
       </div>
+      <Outlet />
     </div>
   );
 };
