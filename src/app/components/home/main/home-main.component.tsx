@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import BannerComponent from "../../../view/home-main/banner.component";
 import MovieRowComponent from "../../../view/home-main/movie-row.component";
 import { useMovieService } from "../../../util/movie/URL";
+import { useNavigate } from 'react-router-dom';
+import AuthService from '../../../util/auth/auth.service';
 import "./home-main.component.css";
 
 const HomeMain: React.FC = () => {
@@ -10,6 +12,15 @@ const HomeMain: React.FC = () => {
   const [popularMoviesUrl, setPopularMoviesUrl] = useState<string>("");
   const [newReleasesUrl, setNewReleasesUrl] = useState<string>("");
   const [actionMoviesUrl, setActionMoviesUrl] = useState<string>("");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // 로그인 여부 확인
+    if (!AuthService.isAuthenticated()) {
+      navigate('/signin'); // 로그인 상태가 아니라면 로그인 화면으로 리다이렉트
+    }
+  }, [navigate]);
 
   const {
     fetchFeaturedMovie,
