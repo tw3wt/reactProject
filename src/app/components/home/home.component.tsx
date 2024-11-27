@@ -6,8 +6,8 @@ import './home.component.css'
 const HomeComponent: React.FC = () => {
   return (
     <div id="app">
-      <Header />
       <div id="container">
+        <Header />
         <Outlet />
       </div>
     </div>
