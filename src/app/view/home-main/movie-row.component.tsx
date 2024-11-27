@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import './movie-row.component.css';
 import WishlistService from '../../util/movie/wishlist';
+import './movie-row.component.css'
 
 interface MovieRowProps {
   title: string;
