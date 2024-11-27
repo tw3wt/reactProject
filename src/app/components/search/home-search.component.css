@@ -17,10 +17,3 @@
   .content-search {
     width: 100%;
   }
-
-.dropdown-container {
-  margin-top: 0;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
