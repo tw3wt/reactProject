@@ -1,7 +1,7 @@
-import React, { useEffect, useState,useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import BannerComponent from '../../../view/home-main/banner.component';
 import MovieRowComponent from '../../../view/home-main/movie-row.component';
-import {useMovieService} from '../../../util/movie/URL'
+import { useMovieService } from '../../../util/movie/URL';
 import './home-main.component.css';
 
 const HomeMain: React.FC = () => {
@@ -18,43 +18,25 @@ const HomeMain: React.FC = () => {
     getURL4GenreMovies,
   } = useMovieService();
 
-  // Scroll event listener reference
-  /**const initializeScrollListener = () => {
-    const handleScroll = () => {
-      const header = document.querySelector(".app-header");
-      if (window.scrollY > 50) {
-        header?.classList.add("scrolled");
-      } else {
-        header?.classList.remove("scrolled");
+  // Load featured movie and initialize URLs once
+  useEffect(() => {
+    const initializeData = async () => {
+      try {
+        // Fetch featured movie
+        const movie = await fetchFeaturedMovie(apiKey);
+        setFeaturedMovie(movie);
+
+        // Initialize URLs
+        setPopularMoviesUrl(getURL4PopularMovies(apiKey));
+        setNewReleasesUrl(getURL4ReleaseMovies(apiKey));
+        setActionMoviesUrl(getURL4GenreMovies(apiKey, "28"));
+      } catch (error) {
+        console.error("Error initializing data:", error);
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll); // Cleanup
-    };
-  };**/
-
-  // Load featured movie data
-  const loadFeaturedMovie = useCallback(async () => {
-    try {
-      const movie = await fetchFeaturedMovie(apiKey);
-      setFeaturedMovie(movie);
-    } catch (error) {
-      console.error("Error fetching featured movie:", error);
-    }
-  }, [fetchFeaturedMovie, apiKey]);
-
-  const initializeURLs = useCallback(() => {
-    setPopularMoviesUrl(getURL4PopularMovies(apiKey));
-    setNewReleasesUrl(getURL4ReleaseMovies(apiKey));
-    setActionMoviesUrl(getURL4GenreMovies(apiKey, "28"));
-  }, [getURL4PopularMovies, getURL4ReleaseMovies, getURL4GenreMovies, apiKey]);
-
-  useEffect(() => {
-    initializeURLs();
-    loadFeaturedMovie();
-  }, [initializeURLs, loadFeaturedMovie]);
+    initializeData();
+  }, [apiKey, fetchFeaturedMovie, getURL4PopularMovies, getURL4ReleaseMovies, getURL4GenreMovies]);
 
   return (
     <div className="home">
@@ -70,3 +52,4 @@ const HomeMain: React.FC = () => {
 };
 
 export default HomeMain;
+
