@@ -13,7 +13,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/"element={isLoggedIn ? <HomeComponent /> : <Navigate to="/sign-in" />}>
+      <Route path="/"element={isLoggedIn ? <HomeComponent /> : <SignIn />}>
         <Route index element={<HomeMain />} />
         <Route path="/popular" element={<HomePopular />} />
         <Route path="/wishlist" element={<HomeWishlist />} />
