@@ -10,6 +10,7 @@ export default class AuthService {
         if (user) {
           if (saveToken) {
             localStorage.setItem('TMDb-Key', user.password);
+            localStorage.setItem('isAuthenticated', 'true'); // 로그인 상태 저장
           }
           resolve(user);
         } else {
@@ -38,5 +39,11 @@ export default class AuthService {
         }
       });
     }
+
+    static isAuthenticated(): boolean {
+      return localStorage.getItem('isAuthenticated') === 'true';
+    }
   }
+
+  
   
