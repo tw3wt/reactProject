@@ -104,6 +104,7 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
     if (sliderRef.current && sliderWindowRef.current) {
       const maxScrollValue =
         sliderRef.current.scrollWidth - sliderWindowRef.current.clientWidth;
+      console.log("Calculated Max Scroll:", maxScrollValue);
       setMaxScroll(Math.max(0, maxScrollValue));
     }
   };
