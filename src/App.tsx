@@ -9,11 +9,9 @@ import HomeWishlist from './app/components/home/wishlist/home-wishlist.component
 import HomeSearch from './app/components/search/home-search.component';
 
 function App() {
-  const isLoggedIn = localStorage.getItem("isAuthenticated") === "true";
-
   return (
     <Routes>
-      <Route path="/"element={isLoggedIn ? <HomeComponent /> : <SignIn />}>
+      <Route path="/" element={<HomeComponent/>}>
         <Route index element={<HomeMain />} />
         <Route path="/popular" element={<HomePopular />} />
         <Route path="/wishlist" element={<HomeWishlist />} />
