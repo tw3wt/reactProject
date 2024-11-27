@@ -33,6 +33,7 @@ const MovieSearch: React.FC<MovieSearchProps> = ({ onChangeOptions }) => {
       ...selectedOptions,
       [key]: option,
     };
+    console.log("Selected Option Updated:", updatedOptions); // 디버깅
     setSelectedOptions(updatedOptions);
     setActiveDropdown(null);
     onChangeOptions(updatedOptions);
