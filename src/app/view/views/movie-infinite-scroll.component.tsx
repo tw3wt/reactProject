@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react"; 
+import './movie-infinite-scroll.component.css'
+
 
 export interface Movie {
   id: number;

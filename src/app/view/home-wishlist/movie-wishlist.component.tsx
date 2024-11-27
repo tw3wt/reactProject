@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import WishlistService from "../../util/movie/wishlist";
 import { Movie } from "../../../models/types";
+import './movie-wishlist.component.css'
 
 const MovieWishlist: React.FC = () => {
   const gridContainerRef = useRef<HTMLDivElement | null>(null);

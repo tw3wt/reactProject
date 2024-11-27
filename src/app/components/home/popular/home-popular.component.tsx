@@ -4,6 +4,7 @@ import { faTh, faBars } from "@fortawesome/free-solid-svg-icons";
 import MovieGrid from "../../../view/views/movie-grid.component"; // MovieGrid 컴포넌트
 import MovieInfiniteScroll from "../../../view/views/movie-infinite-scroll.component"; // MovieInfiniteScroll 컴포넌트
 import useMovieService from "../../../util/movie/URL";
+import './home-popular.component.css'
 
 const HomePopular: React.FC = () => {
     const [currentView, setCurrentView] = useState<string>("grid");

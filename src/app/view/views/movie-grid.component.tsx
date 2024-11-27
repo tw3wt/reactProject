@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef,useCallback } from "react";
 import axios from "axios";
 import { Movie } from "../../../models/types";
 import WishlistService from "../../util/movie/wishlist";
+import './movie-grid.component.css'
 
 interface MovieGridProps {
   fetchUrl: string;

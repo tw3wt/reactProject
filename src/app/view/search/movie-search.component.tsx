@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { SearchOptions } from "../../../models/types";
+import './movie-search.component.css'
 
 type DropdownKey = "originalLanguage" | "translationLanguage" | "sorting";
 
