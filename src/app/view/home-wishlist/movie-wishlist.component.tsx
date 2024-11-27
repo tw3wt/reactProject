@@ -13,6 +13,9 @@ const MovieWishlist: React.FC = () => {
   const [wishlistMovies, setWishlistMovies] = useState<Movie[]>([]);
   const [visibleWishlistMovies, setVisibleWishlistMovies] = useState<Movie[][]>([]);
 
+  const getImageUrl = (path: string) =>
+    path ? `https://image.tmdb.org/t/p/w300${path}` : "/placeholder-image.jpg";
+
   const updateVisibleMovies = useCallback(() => {
     const startIndex = (currentPage - 1) * moviesPerPage;
     const endIndex = startIndex + moviesPerPage;
@@ -25,11 +28,11 @@ const MovieWishlist: React.FC = () => {
       }
       resultArray[groupIndex].push(item);
       return resultArray;
-    },[]);
+    }, []);
     setVisibleWishlistMovies(groupedMovies);
-  },[wishlistMovies, currentPage, moviesPerPage, rowSize]);
+  }, [wishlistMovies, currentPage, moviesPerPage, rowSize]);
 
-  const calculateLayout = () => {
+  const calculateLayout = useCallback(() => {
     if (gridContainerRef.current) {
       const container = gridContainerRef.current;
       const containerWidth = container.offsetWidth;
@@ -45,29 +48,12 @@ const MovieWishlist: React.FC = () => {
       setMoviesPerPage(newRowSize * maxRows);
       updateVisibleMovies();
     }
-  };
+  }, [isMobile, updateVisibleMovies]);
 
-  const handleResize = () => {
+  const handleResize = useCallback(() => {
     setIsMobile(window.innerWidth <= 768);
     calculateLayout();
-  };
-
-  const getImageUrl = (path: string) =>
-    path ? `https://image.tmdb.org/t/p/w300${path}` : "/placeholder-image.jpg";
-
-  const nextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1);
-      updateVisibleMovies();
-    }
-  };
-
-  const prevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
-      updateVisibleMovies();
-    }
-  };
+  }, [calculateLayout]);
 
   const toggleWishlist = (movie: Movie) => {
     WishlistService.toggleWishlist(movie);
@@ -78,31 +64,24 @@ const MovieWishlist: React.FC = () => {
 
   useEffect(() => {
     setWishlistMovies(WishlistService.getCurrentWishlist());
+    setCurrentView("grid"); // currentView를 'grid'로 설정
     calculateLayout();
 
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [currentPage, isMobile, calculateLayout,handleResize]);
+  }, [calculateLayout, handleResize]);
 
   return (
     <div className="movie-grid" ref={gridContainerRef}>
       <div className={`grid-container ${currentView}`}>
         {visibleWishlistMovies.map((movieGroup, groupIndex) => (
-          <div
-            key={groupIndex}
-            className={`movie-row ${movieGroup.length === rowSize ? "full" : ""}`}
-          >
+          <div key={groupIndex} className={`movie-row`}>
             {movieGroup.map((movie) => (
-              <div
-                key={movie.id}
-                className="movie-card"
-                onClick={() => toggleWishlist(movie)}
-              >
+              <div key={movie.id} className="movie-card" onClick={() => toggleWishlist(movie)}>
                 <img src={getImageUrl(movie.poster_path)} alt={movie.title} />
                 <div className="movie-title">{movie.title}</div>
-                <div className="wishlist-indicator">👍</div>
               </div>
             ))}
           </div>
@@ -111,13 +90,13 @@ const MovieWishlist: React.FC = () => {
       {wishlistMovies.length === 0 && <div className="empty-wishlist">위시리스트가 비어 있습니다.</div>}
       {totalPages > 1 && (
         <div className="pagination">
-          <button onClick={prevPage} disabled={currentPage === 1}>
+          <button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
             &lt; 이전
           </button>
           <span>
             {currentPage} / {totalPages}
           </span>
-          <button onClick={nextPage} disabled={currentPage === totalPages}>
+          <button onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
             다음 &gt;
           </button>
         </div>
