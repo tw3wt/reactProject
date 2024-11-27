@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import WishlistService from "../../util/movie/wishlist";
 import { Movie } from "../../../models/types";
 
@@ -13,7 +13,7 @@ const MovieWishlist: React.FC = () => {
   const [wishlistMovies, setWishlistMovies] = useState<Movie[]>([]);
   const [visibleWishlistMovies, setVisibleWishlistMovies] = useState<Movie[][]>([]);
 
-  const updateVisibleMovies = () => {
+  const updateVisibleMovies = useCallback(() => {
     const startIndex = (currentPage - 1) * moviesPerPage;
     const endIndex = startIndex + moviesPerPage;
     const paginatedMovies = wishlistMovies.slice(startIndex, endIndex);
@@ -25,9 +25,9 @@ const MovieWishlist: React.FC = () => {
       }
       resultArray[groupIndex].push(item);
       return resultArray;
-    }, []);
+    },[]);
     setVisibleWishlistMovies(groupedMovies);
-  };
+  },[wishlistMovies, currentPage, moviesPerPage, rowSize]);
 
   const calculateLayout = () => {
     if (gridContainerRef.current) {
@@ -84,7 +84,7 @@ const MovieWishlist: React.FC = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [currentPage, isMobile, wishlistMovies]);
+  }, [currentPage, isMobile, calculateLayout,handleResize]);
 
   return (
     <div className="movie-grid" ref={gridContainerRef}>
