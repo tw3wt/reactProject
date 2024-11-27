@@ -1,6 +1,6 @@
 // src/App.tsx
 
-import { Route  , Routes, Navigate } from 'react-router-dom';
+import { Route  , Routes } from 'react-router-dom';
 import SignIn from '../src/app/components/sign-in/sign-in.component';
 import HomeComponent from './app/components/home/home.component';
 import HomeMain from './app/components/home/main/home-main.component';
