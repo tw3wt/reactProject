@@ -35,7 +35,10 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
     };
   
     fetchMovies();
-  }, [fetchUrl]);
+  }, []);
+
+  const atLeftEdge = () => { return scrollAmount <= 0;}
+  const atRightEdge = () => { return scrollAmount >= maxScroll;}
 
   // Recalculate max scroll on window resize
   useEffect(() => {
@@ -113,9 +116,6 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
     return WishlistService.isInWishlist(movieId);
   };
 
-  const atLeftEdge = scrollAmount <= 0;
-  const atRightEdge = scrollAmount >= maxScroll;
-
   return (
     <div className="movie-row">
       <h2>{title}</h2>
@@ -130,7 +130,7 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
         <button className="slider-button left"
                 onClick={() => slide('left')}
                 style={{ opacity: showButtons && !atLeftEdge ? 1 : 0 }}
-                disabled={atLeftEdge}>&lt;</button>
+                disabled={atLeftEdge()}>&lt;</button>
         <div className="slider-window" ref={sliderWindowRef}>
           {loading ? ( // 로딩 중일 때 메시지 표시
             <p>Loading...</p>
@@ -158,9 +158,9 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
           className="slider-button right"
           onClick={() => slide('right')}
           style={{
-            opacity: showButtons && atRightEdge ? 1 : 0,
+            opacity: showButtons && atRightEdge() ? 1 : 0,
           }}
-          disabled={atRightEdge}
+          disabled={atRightEdge()}
         >&gt;</button>
       </div>
     </div>
