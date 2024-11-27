@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTicket, faUser, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './header.component.css';
@@ -29,9 +29,13 @@ const HeaderComponent: React.FC = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const navigate = useNavigate();
+
   // 사용자 키 제거
   const removeKey = () => {
     alert('User key removed (this action should be implemented)');
+    localStorage.removeItem('TMDb-Key');
+    navigate('/sign-in')
   };
 
   return (

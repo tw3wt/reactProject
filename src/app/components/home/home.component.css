@@ -1,6 +1,12 @@
 #app {
-    width: 95svw;
-    height: 95svh;
-    overflow-x: hidden;
-    margin: auto;
-  }
+  width: 95svw;
+  height: 95svh;
+  overflow-x: hidden;
+  margin: auto;
+  color: black;
+}
+
+#container {
+  margin-top: 60px; /* 헤더 높이만큼 여백 추가 */
+  padding: 20px;
+}

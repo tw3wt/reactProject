@@ -2,8 +2,6 @@
 
 import { Route  , Routes } from 'react-router-dom';
 import SignIn from '../src/app/components/sign-in/sign-in.component';
-import './app/components/sign-in/sign-in.component.css'
-import './app/components/sign-in/sign-in.component.tsx'
 import HomeComponent from './app/components/home/home.component';
 import HomeMain from './app/components/home/main/home-main.component';
 import HomePopular from './app/components/home/popular/home-popular.component';

@@ -1,9 +1,13 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react"; 
 
-interface Movie {
+export interface Movie {
   id: number;
   title: string;
   poster_path: string;
+  backdrop_path?: string;
+  overview?: string;
+  original_language: string;
+  vote_average: number;
 }
 
 interface MovieInfiniteScrollProps {
