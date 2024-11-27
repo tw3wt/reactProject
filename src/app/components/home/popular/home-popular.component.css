@@ -17,10 +17,6 @@
 .view-toggle button.active {
   background-color: #535bf2;
 }
-
-.popular-container{
-  margin-top: 80px; /* 헤더 높이만큼 여백 추가 */
-}
   
 @media (max-width: 768px) {
   .view-toggle {
