@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import MovieSearch from "../../view/search/movie-search.component";
 import MovieInfiniteScroll from "../../view/views/movie-infinite-scroll.component";
 import { SearchOptions } from "../../../models/types";
+import './home-search.component.css'
 
 const HomeSearch: React.FC = () => {
   const [apiKey] = useState<string>(localStorage.getItem("TMDb-Key") || "");
