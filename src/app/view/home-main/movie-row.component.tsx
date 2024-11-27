@@ -129,7 +129,7 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
           onMouseLeave={handleMouseLeave}>
         <button className="slider-button left"
                 onClick={() => slide('left')}
-                style={{ opacity: showButtons && !atLeftEdge ? 1 : 0 }}
+                style={{ opacity: showButtons && !atLeftEdge() ? 1 : 0 }}
                 disabled={atLeftEdge()}>&lt;</button>
         <div className="slider-window" ref={sliderWindowRef}>
           {loading ? ( // 로딩 중일 때 메시지 표시
@@ -154,14 +154,10 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
             </div>
           )}
         </div>
-        <button
-          className="slider-button right"
-          onClick={() => slide('right')}
-          style={{
-            opacity: showButtons && atRightEdge() ? 1 : 0,
-          }}
-          disabled={atRightEdge()}
-        >&gt;</button>
+        <button className="slider-button right"
+                onClick={() => slide('right')}
+                style={{ opacity: showButtons && !atRightEdge() ? 1 : 0 }}
+                disabled={atRightEdge()}>&lt;</button>
       </div>
     </div>
   );
