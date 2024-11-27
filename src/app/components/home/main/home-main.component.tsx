@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import BannerComponent from '../../../view/home-main/banner.component';
-import MovieRowComponent from '../../../view/home-main/movie-row.component';
-import { useMovieService } from '../../../util/movie/URL';
-import './home-main.component.css';
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import BannerComponent from "../../../view/home-main/banner.component";
+import MovieRowComponent from "../../../view/home-main/movie-row.component";
+import { useMovieService } from "../../../util/movie/URL";
+import "./home-main.component.css";
 
 const HomeMain: React.FC = () => {
   const [apiKey] = useState<string>(localStorage.getItem("TMDb-Key") || "");
@@ -18,38 +18,45 @@ const HomeMain: React.FC = () => {
     getURL4GenreMovies,
   } = useMovieService();
 
-  // Load featured movie and initialize URLs once
+  // Featured movie fetch
+  const loadFeaturedMovie = useCallback(async () => {
+    try {
+      const movie = await fetchFeaturedMovie(apiKey);
+      setFeaturedMovie(movie); // 저장된 featuredMovie는 한 번만 설정됨
+    } catch (error) {
+      console.error("Error fetching featured movie:", error);
+    }
+  }, [fetchFeaturedMovie, apiKey]);
+
+  // Initialize URLs for movie rows
+  const initializeURLs = useCallback(() => {
+    setPopularMoviesUrl(getURL4PopularMovies(apiKey));
+    setNewReleasesUrl(getURL4ReleaseMovies(apiKey));
+    setActionMoviesUrl(getURL4GenreMovies(apiKey, "28"));
+  }, [getURL4PopularMovies, getURL4ReleaseMovies, getURL4GenreMovies, apiKey]);
+
+  // Execute initial data load once
   useEffect(() => {
-    const initializeData = async () => {
-      try {
-        // Fetch featured movie
-        const movie = await fetchFeaturedMovie(apiKey);
-        setFeaturedMovie(movie);
+    initializeURLs();
+    loadFeaturedMovie();
+  }, [initializeURLs, loadFeaturedMovie]);
 
-        // Initialize URLs
-        setPopularMoviesUrl(getURL4PopularMovies(apiKey));
-        setNewReleasesUrl(getURL4ReleaseMovies(apiKey));
-        setActionMoviesUrl(getURL4GenreMovies(apiKey, "28"));
-      } catch (error) {
-        console.error("Error initializing data:", error);
-      }
-    };
-
-    initializeData();
-  }, [apiKey, fetchFeaturedMovie, getURL4PopularMovies, getURL4ReleaseMovies, getURL4GenreMovies]);
+  // Memoize `featuredMovie` to prevent unnecessary re-renders
+  const memoizedFeaturedMovie = useMemo(() => featuredMovie, [featuredMovie]);
 
   return (
-    <>
-      {/* 주요 영화 배너 */}
-      <BannerComponent movie={featuredMovie} />
+    <div className="home">
+      {/* Featured Movie Banner */}
+      <BannerComponent movie={memoizedFeaturedMovie} />
 
-      {/* 영화 목록 */}
+      {/* Movie Rows */}
       <MovieRowComponent title="인기 영화" fetchUrl={popularMoviesUrl} />
       <MovieRowComponent title="최신 영화" fetchUrl={newReleasesUrl} />
       <MovieRowComponent title="액션 영화" fetchUrl={actionMoviesUrl} />
-    </>
+    </div>
   );
 };
 
 export default HomeMain;
+
 
