@@ -1,0 +1,42 @@
+.view-toggle {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 80px;
+}
+
+.view-toggle button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin-left: 10px;
+  cursor: pointer;
+  width: 80px;
+  border-radius: 4px;
+}
+
+.view-toggle button.active {
+  background-color: #535bf2;
+}
+
+.clear-options {
+  min-width: 120px;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  border: 1px solid #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 0 !important;
+}
+
+.popular-container {
+  margin-top: 50px;
+}
+
+@media (max-width: 768px) {
+  .view-toggle {
+    margin-top: 80px;
+  }
+}
