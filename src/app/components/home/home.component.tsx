@@ -5,12 +5,12 @@ import './home.component.css'
 
 const HomeComponent: React.FC = () => {
   return (
-    <>
-      <div id = "container">
-        <Header />
+    <div id="app">
+      <Header />
+      <div id="container">
+        <Outlet />
       </div>
-      <Outlet />
-    </>
+    </div>
   );
 };
 
