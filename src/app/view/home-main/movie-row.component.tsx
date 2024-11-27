@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import './movie-row.component.css';
 import WishlistService from '../../util/movie/wishlist';
 
@@ -21,21 +21,21 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
   const [touchEndX, setTouchEndX] = useState(0);
 
   // Fetch movies on mount
+  const fetchMovies = useCallback(async () => {
+    try {
+      const response = await fetch(fetchUrl);
+      const data = await response.json();
+      setMovies(data.results || []);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+      setLoading(false);
+    }
+  }, [fetchUrl]);
+
   useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const response = await fetch(fetchUrl);
-        const data = await response.json();
-        setMovies(data.results || []);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching movies:', error);
-        setLoading(false);
-      }
-    };
-  
     fetchMovies();
-  }, []);
+  }, [fetchMovies]);
 
   const atLeftEdge = () => { return scrollAmount <= 0;}
   const atRightEdge = () => { return scrollAmount >= maxScroll;}
