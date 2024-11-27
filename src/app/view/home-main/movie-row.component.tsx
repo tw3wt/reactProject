@@ -34,7 +34,8 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
   }, [fetchUrl]);
 
   useEffect(() => {
-    fetchMovies();
+    // Fetch movies and calculate scroll size after movies are loaded
+    fetchMovies().then(() => calculateMaxScroll());
   }, [fetchMovies]);
 
   const atLeftEdge = () => { return scrollAmount <= 0;}
@@ -43,13 +44,14 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
   // Recalculate max scroll on window resize
   useEffect(() => {
     const handleResize = () => {
+      console.log("Window resized");
       calculateMaxScroll();
       setScrollAmount((prev) => Math.min(prev, maxScroll));
     };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [maxScroll,movies]);
+  
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [movies, maxScroll]);
 
   const getImageUrl = (path: string): string => {
     return `https://image.tmdb.org/t/p/w300${path}`;
@@ -66,9 +68,15 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
     );
   };
 
-  const handleMouseMove = () => setShowButtons(true);
+  const handleMouseMove = () => {
+    console.log("Mouse moved");
+    setShowButtons(true);
+  };
 
-  const handleMouseLeave = () => setShowButtons(false);
+  const handleMouseLeave = () => {
+    console.log("Mouse left");
+    setShowButtons(false);
+  };
 
   const handleWheel = (event: React.WheelEvent) => {
     event.preventDefault();
@@ -102,9 +110,15 @@ const MovieRow: React.FC<MovieRowProps> = ({ title, fetchUrl }) => {
 
   const calculateMaxScroll = () => {
     if (sliderRef.current && sliderWindowRef.current) {
-      const maxScrollValue =
-        sliderRef.current.scrollWidth - sliderWindowRef.current.clientWidth;
+      const sliderScrollWidth = sliderRef.current.scrollWidth;
+      const sliderWindowWidth = sliderWindowRef.current.clientWidth;
+  
+      console.log("Slider Scroll Width:", sliderScrollWidth);
+      console.log("Slider Window Width:", sliderWindowWidth);
+  
+      const maxScrollValue = sliderScrollWidth - sliderWindowWidth;
       console.log("Calculated Max Scroll:", maxScrollValue);
+  
       setMaxScroll(Math.max(0, maxScrollValue));
     }
   };
